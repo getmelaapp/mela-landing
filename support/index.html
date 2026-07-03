@@ -3,107 +3,150 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Mela — Support</title>
+  <title>Mela, Support</title>
   <meta name="description" content="Get help with Mela. Contact support, read answers to common questions, or request account deletion." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
   <style>
-    :root{--primary:#964900;--cta-start:#f57c00;--cta-end:#964900;--bg:#fff8f5;--surface:#fffdfb;--text:#241912;--muted:#6b5849;--tint:#fdeee2}
+    :root{--primary:#964900;--cta-start:#f57c00;--cta-end:#964900;--bg:#fff8f5;--surface:#fffdfb;--text:#241912;--muted:#6b5849;--tint:#fdeee2;--line:#f0e2d8;--accent:#005bc0}
     *{box-sizing:border-box;margin:0;padding:0}
-    body{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);line-height:1.65;-webkit-font-smoothing:antialiased}
-    h1,h2,.wordmark{font-family:"Plus Jakarta Sans",Inter,sans-serif}
-    .wrap{max-width:720px;margin:0 auto;padding:0 24px}
+    html{scroll-behavior:smooth}
+    body{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--text);line-height:1.68;-webkit-font-smoothing:antialiased}
+    h1,h2,h3,.wordmark{font-family:"Plus Jakarta Sans",Inter,sans-serif}
     a{color:var(--primary)}
-    header{padding:28px 0}
-    .nav{display:flex;align-items:center;justify-content:space-between}
-    .wordmark{font-size:24px;font-weight:800;color:var(--primary);letter-spacing:-.02em;text-decoration:none}
-    .nav-links{font-size:15px;font-weight:500}
+    .wrap{width:100%;max-width:1180px;margin:0 auto;padding:0 40px}
+
+    header{position:sticky;top:0;z-index:20;background:rgba(255,248,245,.9);backdrop-filter:saturate(160%) blur(12px);border-bottom:1px solid var(--line)}
+    .nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+    .wordmark{font-size:22px;font-weight:800;color:var(--primary);letter-spacing:-.02em;text-decoration:none}
+    .nav-links{display:flex;gap:26px;font-size:15px;font-weight:500}
     .nav-links a{color:var(--muted);text-decoration:none}
 
-    main{padding:32px 0 64px}
-    h1{font-size:clamp(30px,5vw,42px);font-weight:800;letter-spacing:-.02em;margin-bottom:12px}
-    .lede{font-size:18px;color:var(--muted);margin-bottom:36px}
+    .banner{background:radial-gradient(1000px 380px at 85% -30%, rgba(245,124,0,.12), transparent 60%);padding:56px 0 44px;border-bottom:1px solid var(--line)}
+    .banner h1{font-size:clamp(34px,4.6vw,52px);font-weight:800;letter-spacing:-.02em;margin-bottom:12px}
+    .banner p{color:var(--muted);font-size:18px;max-width:680px}
 
-    .contact-box{background:linear-gradient(135deg,var(--cta-start),var(--cta-end));color:#fff;border-radius:22px;padding:30px;margin-bottom:40px;box-shadow:0 10px 26px rgba(150,73,0,.2)}
-    .contact-box h2{font-size:20px;font-weight:700;margin-bottom:6px}
-    .contact-box p{opacity:.95;margin-bottom:18px;font-size:15px}
-    .email-btn{display:inline-block;background:#fff;color:var(--primary);font-weight:700;padding:13px 26px;border-radius:14px;text-decoration:none}
+    .layout{display:grid;grid-template-columns:400px 1fr;gap:48px;padding:52px 0 20px;align-items:start}
+
+    /* Contact card */
+    .contact-box{position:sticky;top:88px;background:linear-gradient(135deg,var(--cta-start),var(--cta-end));color:#fff;border-radius:24px;padding:34px 30px;box-shadow:0 16px 40px rgba(150,73,0,.22)}
+    .contact-box h2{font-size:22px;font-weight:800;margin-bottom:8px}
+    .contact-box p{opacity:.95;margin-bottom:20px;font-size:15px}
+    .email-btn{display:inline-block;background:#fff;color:var(--primary);font-weight:700;padding:14px 26px;border-radius:14px;text-decoration:none;font-size:16px}
     .email-btn:hover{opacity:.94}
-    .resp{display:block;margin-top:14px;font-size:14px;opacity:.9}
+    .resp{display:block;margin-top:16px;font-size:14px;opacity:.9}
+    .contact-meta{margin-top:26px;padding-top:22px;border-top:1px solid rgba(255,255,255,.25);font-size:14px;opacity:.95;line-height:1.7}
+    .contact-meta b{font-weight:700}
 
-    h2.sec{font-size:22px;font-weight:700;margin:8px 0 18px}
-    .faq{background:var(--surface);border-radius:18px;padding:8px 22px;box-shadow:0 2px 16px rgba(36,25,18,.05)}
-    details{border-bottom:1px solid #f0e2d8;padding:18px 0}
+    /* FAQ */
+    .faq-head{font-size:14px;text-transform:uppercase;letter-spacing:.1em;color:var(--primary);font-weight:700;margin-bottom:16px}
+    .faq{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:6px 26px}
+    details{border-bottom:1px solid var(--line);padding:20px 0}
     details:last-child{border-bottom:none}
-    summary{font-weight:600;font-size:16px;cursor:pointer;list-style:none}
+    summary{font-weight:600;font-size:17px;cursor:pointer;list-style:none;display:flex;align-items:flex-start;gap:12px}
     summary::-webkit-details-marker{display:none}
-    summary::before{content:"+";color:var(--primary);font-weight:700;margin-right:10px}
-    details[open] summary::before{content:"–"}
-    details p{color:var(--muted);font-size:15px;padding:12px 0 2px 24px}
+    summary::before{content:"+";color:var(--primary);font-weight:700;font-size:20px;line-height:1.1}
+    details[open] summary::before{content:"\2013"}
+    details p{color:var(--muted);font-size:15px;padding:12px 0 2px 24px;margin:0}
+    details p + p{padding-top:8px}
 
-    footer{border-top:1px solid #f0e2d8;padding:30px 0 46px;text-align:center}
-    .foot-links{display:flex;gap:20px;justify-content:center;margin-bottom:14px;font-size:15px;font-weight:500}
+    footer{border-top:1px solid var(--line);padding:40px 0;margin-top:24px}
+    .foot{display:flex;flex-wrap:wrap;gap:22px;justify-content:space-between;align-items:center}
+    .foot-links{display:flex;flex-wrap:wrap;gap:22px;font-size:15px;font-weight:500}
     .foot-links a{color:var(--muted);text-decoration:none}
-    .copy{font-size:14px;color:var(--muted)}
+    .copy{width:100%;font-size:14px;color:var(--muted);margin-top:6px}
+
+    @media (max-width:900px){
+      .wrap{padding:0 24px}
+      .layout{grid-template-columns:1fr;gap:28px}
+      .contact-box{position:static}
+    }
   </style>
 </head>
 <body>
   <header>
     <div class="wrap nav">
       <a class="wordmark" href="../">Mela</a>
-      <nav class="nav-links"><a href="../">← Home</a></nav>
+      <nav class="nav-links">
+        <a href="../">Home</a>
+        <a href="../privacy/">Privacy</a>
+      </nav>
     </div>
   </header>
 
-  <main class="wrap">
-    <h1>Support</h1>
-    <p class="lede">Questions, bugs, or feedback about Mela? We're happy to help.</p>
+  <div class="banner">
+    <div class="wrap">
+      <h1>Support</h1>
+      <p>Questions, bugs, or feedback about Mela? We are here to help you get the most out of every lead.</p>
+    </div>
+  </div>
 
-    <div class="contact-box">
+  <div class="wrap layout">
+    <aside class="contact-box">
       <h2>Email us</h2>
-      <p>The fastest way to reach us. Tell us what device you're on and what happened, and we'll get back to you.</p>
+      <p>The fastest way to reach us. Tell us what device you are on and what happened, and we will get back to you.</p>
       <a class="email-btn" href="mailto:krantipaudyal@gmail.com?subject=Mela%20Support">krantipaudyal@gmail.com</a>
-      <span class="resp">We typically reply within 1–2 business days.</span>
-    </div>
+      <span class="resp">We typically reply within one to two business days.</span>
+      <div class="contact-meta">
+        <b>App:</b> Mela<br />
+        <b>Support hours:</b> Monday to Friday<br />
+        <b>Account deletion:</b> email us with the subject "Delete my account"
+      </div>
+    </aside>
 
-    <h2 class="sec">Common questions</h2>
-    <div class="faq">
-      <details>
-        <summary>What is Mela?</summary>
-        <p>Mela is a trade-show lead capture and follow-up app for B2B consumer electronics resellers. You scan business cards, add voice or typed notes, organize contacts by event, and generate personalized follow-up drafts.</p>
-      </details>
-      <details>
-        <summary>The card scan didn't fill in everything correctly. What do I do?</summary>
-        <p>You can always edit any field before saving — scanning is a head start, never a hard requirement. Fields the app wasn't confident about are highlighted so you can double-check them.</p>
-      </details>
-      <details>
-        <summary>How do voice notes work?</summary>
-        <p>Record a short note and Mela transcribes it to text automatically, then suggests relevant hashtags. The text becomes part of the contact's history.</p>
-      </details>
-      <details>
-        <summary>Does Mela send messages for me?</summary>
-        <p>No. Mela generates follow-up drafts and hands them off to your own WhatsApp or email. You review and send every message yourself.</p>
-      </details>
-      <details>
-        <summary>How do I delete a contact or my account?</summary>
-        <p>You can delete any contact from its detail screen in the app. To delete your entire account and all associated data, email us at krantipaudyal@gmail.com and we'll process the request.</p>
-      </details>
-      <details>
-        <summary>How is my data handled?</summary>
-        <p>See our <a href="../privacy/">Privacy Policy</a> for details on what we collect, how it's used, and the services that process it.</p>
-      </details>
-    </div>
-  </main>
+    <main>
+      <p class="faq-head">Frequently asked questions</p>
+      <div class="faq">
+        <details open>
+          <summary>What is Mela?</summary>
+          <p>Mela is a trade-show lead capture and follow-up app for B2B consumer electronics resellers. You scan business cards, add voice or typed notes, organize contacts by event, and generate personalized follow-up drafts.</p>
+        </details>
+        <details>
+          <summary>The card scan did not fill in everything correctly. What do I do?</summary>
+          <p>You can always edit any field before saving. Scanning is a head start, never a hard requirement, so you can also type a lead in by hand. Fields the app was not confident about are highlighted so you can double-check them.</p>
+        </details>
+        <details>
+          <summary>How do voice notes work?</summary>
+          <p>Record a short note and Mela transcribes it to text automatically, then suggests relevant hashtags. The text becomes part of the contact's history and is searchable later.</p>
+        </details>
+        <details>
+          <summary>Does Mela send messages for me?</summary>
+          <p>No. Mela generates follow-up drafts and hands them to your own WhatsApp or email. You review and send every message yourself, so nothing goes out automatically.</p>
+        </details>
+        <details>
+          <summary>What permissions does the app need, and why?</summary>
+          <p>The camera is used to photograph business cards, the microphone to record voice notes, and the photo library only if you pick an existing image. Optional notifications send you reminders, such as a nudge to add a note about a lead you just met. You can change any of these in your device settings.</p>
+        </details>
+        <details>
+          <summary>How do I delete a contact?</summary>
+          <p>Open the contact's detail screen in the app and choose delete. The contact and its related notes and encounters are removed.</p>
+        </details>
+        <details>
+          <summary>How do I delete my account and all my data?</summary>
+          <p>Email us at krantipaudyal@gmail.com with the subject "Delete my account", or use the contact option in the app. After we verify the request, we delete your account and associated data, except for anything we are required to keep for legal reasons.</p>
+        </details>
+        <details>
+          <summary>How is my data handled?</summary>
+          <p>Your data is isolated to your own account and protected by authentication. For full details on what we collect, how it is used, and the services that process it, see our <a href="../privacy/">Privacy Policy</a>.</p>
+        </details>
+        <details>
+          <summary>Is Mela available now?</summary>
+          <p>Mela is preparing to launch on the App Store. If you are testing an early version and run into an issue, email us and we will help right away.</p>
+        </details>
+      </div>
+    </main>
+  </div>
 
   <footer>
-    <div class="wrap">
-      <div class="foot-links">
+    <div class="wrap foot">
+      <a class="wordmark" href="../" style="text-decoration:none">Mela</a>
+      <nav class="foot-links">
         <a href="../">Home</a>
         <a href="../privacy/">Privacy Policy</a>
         <a href="mailto:krantipaudyal@gmail.com">Contact</a>
-      </div>
-      <p class="copy">© 2026 Mela. All rights reserved.</p>
+      </nav>
+      <p class="copy">Copyright 2026 Mela. All rights reserved.</p>
     </div>
   </footer>
 </body>
