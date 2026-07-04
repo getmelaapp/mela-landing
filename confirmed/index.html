@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Email confirmed · Mela</title>
+  <meta name="description" content="Your Mela account is verified. Head back to the app and sign in." />
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="../assets/icon.svg" />
+  <link rel="apple-touch-icon" href="../assets/icon.png" />
+  <meta name="theme-color" content="#964900" />
+  <style>
+    :root{--primary:#964900;--cta-start:#f57c00;--cta-end:#964900;--bg:#fff8f5;--surface:#fffdfb;--text:#241912;--muted:#6b5849;--line:#f0e2d8;--ok:#1f9d55}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:
+      radial-gradient(1000px 500px at 50% -10%, rgba(245,124,0,.14), transparent 60%), var(--bg);
+      color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;
+      min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:24px}
+    h1{font-family:"Plus Jakarta Sans",Inter,sans-serif}
+    .card{width:100%;max-width:440px;background:var(--surface);border:1px solid var(--line);
+      border-radius:26px;padding:44px 30px 34px;text-align:center;box-shadow:0 24px 60px rgba(36,25,18,.10)}
+    .badge{width:84px;height:84px;margin:0 auto 26px;border-radius:50%;
+      background:linear-gradient(135deg,#22b869,var(--ok));display:flex;align-items:center;justify-content:center;
+      box-shadow:0 12px 30px rgba(31,157,85,.30)}
+    .badge svg{width:42px;height:42px}
+    h1{font-size:27px;font-weight:800;letter-spacing:-.02em;margin-bottom:12px}
+    .lede{font-size:16px;color:var(--muted);margin-bottom:28px}
+    .lede b{color:var(--text);font-weight:600}
+    .cta{display:block;width:100%;background:linear-gradient(135deg,var(--cta-start),var(--cta-end));
+      color:#fff;font-weight:700;font-size:16px;padding:16px 24px;border-radius:15px;text-decoration:none;
+      box-shadow:0 12px 28px rgba(150,73,0,.24)}
+    .cta:hover{opacity:.96}
+    .hint{margin-top:16px;font-size:14px;color:var(--muted)}
+    .support{margin-top:26px;padding-top:22px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+    .support a{color:var(--primary);font-weight:600;text-decoration:none}
+    .support a:hover{text-decoration:underline}
+    .wordmark{margin-top:26px}
+    .wordmark img{height:22px;width:auto;opacity:.9}
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="badge" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M4.5 12.5l5 5 10-11" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <h1>Email confirmed 🎉</h1>
+    <p class="lede">Your Mela account is verified. Head back to the <b>Mela app</b> and sign in to finish setting up your profile.</p>
+    <a class="cta" href="mela://">Open Mela</a>
+    <p class="hint">If the button doesn't open the app, just switch back to Mela and sign in.</p>
+    <div class="support">
+      Need help? Email <a href="mailto:support@saymela.com">support@saymela.com</a>
+    </div>
+    <div class="wordmark">
+      <img src="../assets/mela-wordmark.svg" alt="Mela" />
+    </div>
+  </main>
+</body>
+</html>
