@@ -1,0 +1,22 @@
+services:
+  - type: web
+    runtime: static
+    name: mela-landing
+    # Serve the repo root as-is (index.html, privacy/, support/)
+    staticPublishPath: .
+    # Optional: pretty URLs and security headers
+    headers:
+      - path: /*
+        name: X-Frame-Options
+        value: SAMEORIGIN
+      - path: /*
+        name: X-Content-Type-Options
+        value: nosniff
+    routes:
+      # Serve directory index files for /privacy and /support
+      - type: rewrite
+        source: /privacy
+        destination: /privacy/index.html
+      - type: rewrite
+        source: /support
+        destination: /support/index.html
