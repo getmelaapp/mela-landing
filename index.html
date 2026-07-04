@@ -8,6 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='%23f57c00'/><stop offset='1' stop-color='%23964900'/></linearGradient></defs><rect width='40' height='40' rx='11' fill='url(%23g)'/><path d='M11 28V12L20 21L29 12V28' fill='none' stroke='%23fff' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'/></svg>" />
+  <meta name="theme-color" content="#964900" />
   <style>
     :root{
       --primary:#964900; --cta-start:#f57c00; --cta-end:#964900;
@@ -26,6 +28,10 @@
     header{position:sticky;top:0;z-index:20;background:rgba(255,248,245,.85);backdrop-filter:saturate(160%) blur(12px);border-bottom:1px solid var(--line)}
     .nav{display:flex;align-items:center;justify-content:space-between;height:68px}
     .wordmark{font-size:24px;font-weight:800;color:var(--primary);letter-spacing:-.02em}
+    .brand{display:inline-flex;align-items:center;gap:11px;text-decoration:none}
+    .brand:hover{text-decoration:none}
+    .logo-mark{border-radius:10px;box-shadow:0 4px 12px rgba(150,73,0,.22);flex-shrink:0;display:block}
+    .foot .logo-mark{width:26px;height:26px}
     .nav-links{display:flex;gap:28px;font-size:15px;font-weight:500}
     .nav-links a{color:var(--muted)}
 
@@ -114,7 +120,10 @@
 <body>
   <header>
     <div class="wrap nav">
-      <span class="wordmark">Mela</span>
+      <a class="brand" href="/" aria-label="Mela home">
+        <svg class="logo-mark" width="32" height="32" viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="mg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f57c00"/><stop offset="1" stop-color="#964900"/></linearGradient></defs><rect width="40" height="40" rx="11" fill="url(#mg1)"/><path d="M11 28V12L20 21L29 12V28" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="wordmark">Mela</span>
+      </a>
       <nav class="nav-links">
         <a href="#features">Features</a>
         <a href="support/">Support</a>
@@ -244,7 +253,10 @@
 
   <footer>
     <div class="wrap foot">
-      <span class="wordmark">Mela</span>
+      <a class="brand" href="/" aria-label="Mela home">
+        <svg class="logo-mark" width="26" height="26" viewBox="0 0 40 40" aria-hidden="true"><defs><linearGradient id="mg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f57c00"/><stop offset="1" stop-color="#964900"/></linearGradient></defs><rect width="40" height="40" rx="11" fill="url(#mg2)"/><path d="M11 28V12L20 21L29 12V28" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="wordmark">Mela</span>
+      </a>
       <nav class="foot-links">
         <a href="#features">Features</a>
         <a href="support/">Support</a>
