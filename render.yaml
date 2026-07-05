@@ -20,3 +20,9 @@ services:
       - type: rewrite
         source: /support
         destination: /support/index.html
+      - type: rewrite
+        source: /terms
+        destination: /terms/index.html
+      - type: rewrite
+        source: /confirmed
+        destination: /confirmed/index.html
