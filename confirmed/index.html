@@ -12,8 +12,29 @@
   <link rel="icon" type="image/svg+xml" href="../assets/icon.svg" />
   <link rel="apple-touch-icon" href="../assets/icon.png" />
   <meta name="theme-color" content="#964900" />
+  <script>
+    // Supabase 303-redirects to this page with the outcome in the URL fragment.
+    // A failed, expired, or already-used link carries error=... in that fragment
+    // and the account is NOT verified, so we must not show the success card.
+    // Decide before first paint (data-state on <html>, CSS keyed off it) so there
+    // is no flash of the wrong state.
+    (function () {
+      var state = "ok";
+      try {
+        var frag = (window.location.hash || "").replace(/^#/, "");
+        var params = new URLSearchParams(frag);
+        if (params.get("error") || params.get("error_code") || params.get("error_description")) {
+          state = "error";
+        }
+      } catch (e) { /* default to ok */ }
+      document.documentElement.setAttribute("data-state", state);
+      if (state === "error") {
+        try { document.title = "Link expired · Mela"; } catch (e) {}
+      }
+    })();
+  </script>
   <style>
-    :root{--primary:#964900;--cta-start:#f57c00;--cta-end:#964900;--bg:#fff8f5;--surface:#fffdfb;--text:#241912;--muted:#6b5849;--line:#f0e2d8;--ok:#1f9d55}
+    :root{--primary:#964900;--cta-start:#f57c00;--cta-end:#964900;--bg:#fff8f5;--surface:#fffdfb;--text:#241912;--muted:#6b5849;--line:#f0e2d8;--ok:#1f9d55;--warn:#c2410c}
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:
       radial-gradient(1000px 500px at 50% -10%, rgba(245,124,0,.14), transparent 60%), var(--bg);
@@ -23,9 +44,10 @@
     .card{width:100%;max-width:440px;background:var(--surface);border:1px solid var(--line);
       border-radius:26px;padding:44px 30px 34px;text-align:center;box-shadow:0 24px 60px rgba(36,25,18,.10)}
     .badge{width:84px;height:84px;margin:0 auto 26px;border-radius:50%;
-      background:linear-gradient(135deg,#22b869,var(--ok));display:flex;align-items:center;justify-content:center;
-      box-shadow:0 12px 30px rgba(31,157,85,.30)}
+      display:flex;align-items:center;justify-content:center}
     .badge svg{width:42px;height:42px}
+    .badge-ok{background:linear-gradient(135deg,#22b869,var(--ok));box-shadow:0 12px 30px rgba(31,157,85,.30)}
+    .badge-warn{background:linear-gradient(135deg,#f57c00,var(--warn));box-shadow:0 12px 30px rgba(194,65,12,.28)}
     h1{font-size:27px;font-weight:800;letter-spacing:-.02em;margin-bottom:12px}
     .lede{font-size:16px;color:var(--muted);margin-bottom:28px}
     .lede b{color:var(--text);font-weight:600}
@@ -39,11 +61,18 @@
     .support a:hover{text-decoration:underline}
     .wordmark{margin-top:26px}
     .wordmark img{height:22px;width:auto;opacity:.9}
+    /* State gating: keep both cards hidden until the inline script sets
+       data-state, then reveal exactly one. noscript fallback re-shows success. */
+    #ok,#err{display:none}
+    :root[data-state="ok"] #ok{display:block}
+    :root[data-state="error"] #err{display:block}
   </style>
+  <noscript><style>#ok{display:block !important}</style></noscript>
 </head>
 <body>
-  <main class="card">
-    <div class="badge" aria-hidden="true">
+  <!-- Success: token verified, account is confirmed. -->
+  <main class="card" id="ok">
+    <div class="badge badge-ok" aria-hidden="true">
       <svg viewBox="0 0 24 24" fill="none"><path d="M4.5 12.5l5 5 10-11" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </div>
     <h1>Email confirmed 🎉</h1>
@@ -52,6 +81,24 @@
     <p class="hint">If the button doesn't open the app, just switch back to Mela and sign in.</p>
     <div class="support">
       Need help? Email <a href="mailto:support@saymela.com">support@saymela.com</a>
+    </div>
+    <div class="wordmark">
+      <img src="../assets/mela-wordmark.svg" alt="Mela" />
+    </div>
+  </main>
+
+  <!-- Failure: fragment carried error=... (link expired or already used). The
+       account is NOT verified, so we tell the user how to get a fresh link. -->
+  <main class="card" id="err">
+    <div class="badge badge-warn" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none"><path d="M12 7.5v5.5" stroke="#fff" stroke-width="2.8" stroke-linecap="round"/><circle cx="12" cy="16.5" r="1.5" fill="#fff"/></svg>
+    </div>
+    <h1>This link has expired</h1>
+    <p class="lede">Confirmation links can be used once and expire after a short time, for your security. This one is no longer valid, but getting a fresh one takes seconds.</p>
+    <a class="cta" href="mela://">Open Mela</a>
+    <p class="hint">In the Mela app, start sign up again with the same email and a new confirmation link is on its way.</p>
+    <div class="support">
+      Still stuck? Email <a href="mailto:support@saymela.com">support@saymela.com</a>
     </div>
     <div class="wordmark">
       <img src="../assets/mela-wordmark.svg" alt="Mela" />
