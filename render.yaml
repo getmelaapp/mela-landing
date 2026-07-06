@@ -29,3 +29,11 @@ services:
       - type: rewrite
         source: /reset-password
         destination: /reset-password/index.html
+      # Team invite links: /join/<code> (and bare /join) serve the same page,
+      # which reads the code from the path and opens the app (mela://join/<code>).
+      - type: rewrite
+        source: /join
+        destination: /join/index.html
+      - type: rewrite
+        source: /join/*
+        destination: /join/index.html

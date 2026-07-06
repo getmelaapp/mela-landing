@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Join a team · Mela</title>
+  <meta name="description" content="You've been invited to a team on Mela." />
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="/assets/icon.svg" />
+  <link rel="apple-touch-icon" href="/assets/icon.png" />
+  <meta name="theme-color" content="#964900" />
+  <style>
+    :root{--primary:#964900;--cta-start:#f57c00;--cta-end:#964900;--bg:#fff8f5;--surface:#fffdfb;--text:#241912;--muted:#6b5849;--line:#f0e2d8;--ok:#1f9d55;--warn:#c2410c}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:
+      radial-gradient(1000px 500px at 50% -10%, rgba(245,124,0,.14), transparent 60%), var(--bg);
+      color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;
+      min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:24px}
+    h1{font-family:"Plus Jakarta Sans",Inter,sans-serif;font-size:27px;font-weight:800;letter-spacing:-.02em;margin-bottom:12px}
+    .card{width:100%;max-width:440px;background:var(--surface);border:1px solid var(--line);
+      border-radius:26px;padding:44px 30px 34px;text-align:center;box-shadow:0 24px 60px rgba(36,25,18,.10)}
+    .badge{width:84px;height:84px;margin:0 auto 26px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+    .badge svg{width:42px;height:42px}
+    .badge-team{background:linear-gradient(135deg,var(--cta-start),var(--cta-end));box-shadow:0 12px 30px rgba(150,73,0,.24)}
+    .badge-warn{background:linear-gradient(135deg,#f57c00,var(--warn));box-shadow:0 12px 30px rgba(194,65,12,.28)}
+    .lede{font-size:16px;color:var(--muted);margin-bottom:28px}
+    .lede b{color:var(--text);font-weight:600}
+    .cta{display:block;width:100%;background:linear-gradient(135deg,var(--cta-start),var(--cta-end));color:#fff;font-weight:700;font-size:16px;padding:16px 24px;border:0;border-radius:15px;text-decoration:none;box-shadow:0 12px 28px rgba(150,73,0,.24);cursor:pointer;font-family:inherit}
+    .cta:hover{opacity:.96}
+    .hint{margin-top:16px;font-size:14px;color:var(--muted)}
+    .support{margin-top:26px;padding-top:22px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+    .support a{color:var(--primary);font-weight:600;text-decoration:none}
+    .support a:hover{text-decoration:underline}
+    .wordmark{margin-top:26px}
+    .wordmark img{height:22px;width:auto;opacity:.9}
+    /* One screen at a time; the inline script sets data-state on <html>. */
+    [data-screen]{display:none}
+    :root[data-state="invite"] [data-screen="invite"],
+    :root[data-state="error"] [data-screen="error"]{display:block}
+  </style>
+</head>
+<body>
+  <main class="card">
+    <!-- Valid invite -->
+    <div data-screen="invite">
+      <div class="badge badge-team" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="9" cy="8" r="3.2" stroke="#fff" stroke-width="2.1"/><path d="M3.5 19c0-3 2.5-4.6 5.5-4.6s5.5 1.6 5.5 4.6" stroke="#fff" stroke-width="2.1" stroke-linecap="round"/><path d="M16.5 8.2a3 3 0 0 1 0 5.4M18 19c0-2.3-1-3.8-2.6-4.7" stroke="#fff" stroke-width="2.1" stroke-linecap="round"/></svg>
+      </div>
+      <h1>You're invited to a team</h1>
+      <p class="lede">Open <b>Mela</b> to join the team. You'll get unlimited access as a member.</p>
+      <a class="cta" id="openBtn" href="#">Open in Mela</a>
+      <p class="hint">Don't have Mela yet? It's coming to the App Store - once you install it and sign in, open this link again to join.</p>
+    </div>
+
+    <!-- Bad / missing code -->
+    <div data-screen="error">
+      <div class="badge badge-warn" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 7.5v5.5" stroke="#fff" stroke-width="2.8" stroke-linecap="round"/><circle cx="12" cy="16.5" r="1.5" fill="#fff"/></svg>
+      </div>
+      <h1>This invite link isn't valid</h1>
+      <p class="lede">The link looks incomplete or has expired. Ask your team owner to share a fresh invite link.</p>
+      <a class="cta" href="mela://">Open Mela</a>
+    </div>
+
+    <div class="support">
+      Need help? Email <a href="mailto:support@saymela.com">support@saymela.com</a>
+    </div>
+    <div class="wordmark">
+      <img src="/assets/mela-wordmark.svg" alt="Mela" />
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      function show(state){ root.setAttribute("data-state", state); }
+
+      // The link is /join/<code>; read the code from the path (the static host
+      // rewrites /join/* to this page). Fall back to a ?code= query just in case.
+      var code = "";
+      try {
+        var m = window.location.pathname.match(/\/join\/([^\/?#]+)/);
+        if (m) code = decodeURIComponent(m[1]);
+        if (!code) code = new URLSearchParams(window.location.search).get("code") || "";
+      } catch (e) {}
+
+      // Same shape the app + backend accept (secrets.token_urlsafe => url-safe).
+      if (!/^[A-Za-z0-9_-]{8,80}$/.test(code)) { show("error"); return; }
+
+      document.getElementById("openBtn").setAttribute("href", "mela://join/" + code);
+      show("invite");
+    })();
+  </script>
+</body>
+</html>
