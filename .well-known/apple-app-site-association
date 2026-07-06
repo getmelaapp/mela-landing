@@ -1,0 +1,11 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "WDQF2ZM39Q.com.trymela.app",
+        "paths": ["/c/*", "/join/*"]
+      }
+    ]
+  }
+}
