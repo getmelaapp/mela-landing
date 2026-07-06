@@ -37,3 +37,12 @@ services:
       - type: rewrite
         source: /join/*
         destination: /join/index.html
+      # QR card-exchange links: /c/<token> serves the same page, which reads the
+      # token from the path and opens the app (mela://c/<token>). The token is
+      # single-use and never touched here (no DB read); the app resolves it.
+      - type: rewrite
+        source: /c
+        destination: /c/index.html
+      - type: rewrite
+        source: /c/*
+        destination: /c/index.html

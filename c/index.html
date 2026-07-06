@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Save a contact · Mela</title>
+  <meta name="description" content="Someone shared their Mela card with you." />
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="/assets/icon.svg" />
+  <link rel="apple-touch-icon" href="/assets/icon.png" />
+  <meta name="theme-color" content="#964900" />
+  <style>
+    :root{--primary:#964900;--cta-start:#f57c00;--cta-end:#964900;--bg:#fff8f5;--surface:#fffdfb;--text:#241912;--muted:#6b5849;--line:#f0e2d8;--ok:#1f9d55;--warn:#c2410c}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:
+      radial-gradient(1000px 500px at 50% -10%, rgba(245,124,0,.14), transparent 60%), var(--bg);
+      color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;
+      min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:24px}
+    h1{font-family:"Plus Jakarta Sans",Inter,sans-serif;font-size:27px;font-weight:800;letter-spacing:-.02em;margin-bottom:12px}
+    .card{width:100%;max-width:440px;background:var(--surface);border:1px solid var(--line);
+      border-radius:26px;padding:44px 30px 34px;text-align:center;box-shadow:0 24px 60px rgba(36,25,18,.10)}
+    .badge{width:84px;height:84px;margin:0 auto 26px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+    .badge svg{width:42px;height:42px}
+    .badge-card{background:linear-gradient(135deg,var(--cta-start),var(--cta-end));box-shadow:0 12px 30px rgba(150,73,0,.24)}
+    .badge-warn{background:linear-gradient(135deg,#f57c00,var(--warn));box-shadow:0 12px 30px rgba(194,65,12,.28)}
+    .lede{font-size:16px;color:var(--muted);margin-bottom:28px}
+    .lede b{color:var(--text);font-weight:600}
+    .cta{display:block;width:100%;background:linear-gradient(135deg,var(--cta-start),var(--cta-end));color:#fff;font-weight:700;font-size:16px;padding:16px 24px;border:0;border-radius:15px;text-decoration:none;box-shadow:0 12px 28px rgba(150,73,0,.24);cursor:pointer;font-family:inherit}
+    .cta:hover{opacity:.96}
+    .hint{margin-top:16px;font-size:14px;color:var(--muted)}
+    .support{margin-top:26px;padding-top:22px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+    .support a{color:var(--primary);font-weight:600;text-decoration:none}
+    .support a:hover{text-decoration:underline}
+    .wordmark{margin-top:26px}
+    .wordmark img{height:22px;width:auto;opacity:.9}
+    /* One screen at a time; the inline script sets data-state on <html>. */
+    [data-screen]{display:none}
+    :root[data-state="card"] [data-screen="card"],
+    :root[data-state="error"] [data-screen="error"]{display:block}
+  </style>
+</head>
+<body>
+  <main class="card">
+    <!-- Valid card link -->
+    <div data-screen="card">
+      <div class="badge badge-card" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2.5" stroke="#fff" stroke-width="2.1"/><circle cx="8.5" cy="11" r="2" stroke="#fff" stroke-width="1.9"/><path d="M13.5 10h4M13.5 13.5h4M5.5 15.2c.4-1.4 1.6-2.1 3-2.1s2.6.7 3 2.1" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></svg>
+      </div>
+      <h1>Someone shared their card</h1>
+      <p class="lede">Open <b>Mela</b> to save this contact - just like scanning their business card.</p>
+      <a class="cta" id="openBtn" href="#">Open in Mela</a>
+      <p class="hint">Don't have Mela yet? It's coming to the App Store - once you install it and sign in, come back and open this link to save the contact.</p>
+    </div>
+
+    <!-- Bad / expired code -->
+    <div data-screen="error">
+      <div class="badge badge-warn" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 7.5v5.5" stroke="#fff" stroke-width="2.8" stroke-linecap="round"/><circle cx="12" cy="16.5" r="1.5" fill="#fff"/></svg>
+      </div>
+      <h1>This card link isn't valid</h1>
+      <p class="lede">The link looks incomplete or has expired. Mela share codes are single-use and rotate every few seconds - ask them to show a fresh QR.</p>
+      <a class="cta" href="mela://">Open Mela</a>
+    </div>
+
+    <div class="support">
+      Need help? Email <a href="mailto:support@saymela.com">support@saymela.com</a>
+    </div>
+    <div class="wordmark">
+      <img src="/assets/mela-wordmark.svg" alt="Mela" />
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+      function show(state){ root.setAttribute("data-state", state); }
+
+      // The link is /c/<token>; read the token from the path (the static host
+      // rewrites /c/* to this page). Fall back to a ?token= query just in case.
+      var token = "";
+      try {
+        var m = window.location.pathname.match(/\/c\/([^\/?#]+)/);
+        if (m) token = decodeURIComponent(m[1]);
+        if (!token) token = new URLSearchParams(window.location.search).get("token") || "";
+      } catch (e) {}
+
+      // Same url-safe shape the app + backend accept (server enforces {30,64};
+      // this is a slightly looser superset so a valid token is never rejected).
+      if (!/^[A-Za-z0-9_-]{24,80}$/.test(token)) { show("error"); return; }
+
+      document.getElementById("openBtn").setAttribute("href", "mela://c/" + token);
+      show("card");
+    })();
+  </script>
+</body>
+</html>
