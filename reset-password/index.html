@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reset password · Mela</title>
+  <meta name="description" content="Set a new password for your Mela account." />
+  <meta name="robots" content="noindex" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="../assets/icon.svg" />
+  <link rel="apple-touch-icon" href="../assets/icon.png" />
+  <meta name="theme-color" content="#964900" />
+  <style>
+    :root{--primary:#964900;--cta-start:#f57c00;--cta-end:#964900;--bg:#fff8f5;--surface:#fffdfb;--text:#241912;--muted:#6b5849;--line:#f0e2d8;--ok:#1f9d55;--warn:#c2410c}
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:
+      radial-gradient(1000px 500px at 50% -10%, rgba(245,124,0,.14), transparent 60%), var(--bg);
+      color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;
+      min-height:100vh;min-height:100dvh;display:flex;align-items:center;justify-content:center;padding:24px}
+    h1{font-family:"Plus Jakarta Sans",Inter,sans-serif;font-size:27px;font-weight:800;letter-spacing:-.02em;margin-bottom:12px}
+    .card{width:100%;max-width:440px;background:var(--surface);border:1px solid var(--line);
+      border-radius:26px;padding:44px 30px 34px;text-align:center;box-shadow:0 24px 60px rgba(36,25,18,.10)}
+    .badge{width:84px;height:84px;margin:0 auto 26px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+    .badge svg{width:42px;height:42px}
+    .badge-ok{background:linear-gradient(135deg,#22b869,var(--ok));box-shadow:0 12px 30px rgba(31,157,85,.30)}
+    .badge-warn{background:linear-gradient(135deg,#f57c00,var(--warn));box-shadow:0 12px 30px rgba(194,65,12,.28)}
+    .badge-key{background:linear-gradient(135deg,var(--cta-start),var(--cta-end));box-shadow:0 12px 30px rgba(150,73,0,.24)}
+    .lede{font-size:16px;color:var(--muted);margin-bottom:28px}
+    .lede b{color:var(--text);font-weight:600}
+    .field{position:relative;margin-bottom:14px}
+    input{width:100%;font-size:16px;padding:15px 62px 15px 16px;border:1px solid var(--line);border-radius:14px;background:#fff;color:var(--text);font-family:inherit}
+    input:focus{outline:none;border-color:var(--cta-start);box-shadow:0 0 0 3px rgba(245,124,0,.14)}
+    .toggle{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:none;border:0;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;padding:8px}
+    .rules{list-style:none;text-align:left;margin:2px 0 20px;font-size:13.5px;color:var(--muted)}
+    .rules li{display:flex;align-items:center;gap:8px;padding:2px 0}
+    .rules li::before{content:"○";color:var(--muted)}
+    .rules li.ok{color:var(--ok)}
+    .rules li.ok::before{content:"●";color:var(--ok)}
+    .cta{display:block;width:100%;background:linear-gradient(135deg,var(--cta-start),var(--cta-end));color:#fff;font-weight:700;font-size:16px;padding:16px 24px;border:0;border-radius:15px;text-decoration:none;box-shadow:0 12px 28px rgba(150,73,0,.24);cursor:pointer;font-family:inherit}
+    .cta:hover{opacity:.96}
+    .cta:disabled{opacity:.5;cursor:not-allowed;box-shadow:none}
+    .err-msg{color:var(--warn);font-size:14px;margin-top:14px;min-height:1px}
+    .hint{margin-top:16px;font-size:14px;color:var(--muted)}
+    .support{margin-top:26px;padding-top:22px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+    .support a{color:var(--primary);font-weight:600;text-decoration:none}
+    .support a:hover{text-decoration:underline}
+    .wordmark{margin-top:26px}
+    .wordmark img{height:22px;width:auto;opacity:.9}
+    /* One screen at a time; the inline script sets data-state on <html>. */
+    [data-screen]{display:none}
+    :root[data-state="loading"] [data-screen="loading"],
+    :root[data-state="form"] [data-screen="form"],
+    :root[data-state="done"] [data-screen="done"],
+    :root[data-state="error"] [data-screen="error"]{display:block}
+  </style>
+</head>
+<body>
+  <main class="card">
+    <!-- Verifying the recovery link -->
+    <div data-screen="loading">
+      <h1>Checking your link…</h1>
+      <p class="lede">One moment while we verify your reset link.</p>
+    </div>
+
+    <!-- Set a new password -->
+    <div data-screen="form">
+      <div class="badge badge-key" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><circle cx="8" cy="14" r="4.2" stroke="#fff" stroke-width="2.2"/><path d="M11 12l8-8m-2 0h2v2m-4 2 1.5 1.5" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h1>Set a new password</h1>
+      <p class="lede">Choose a new password for <b id="who">your account</b>.</p>
+      <form id="form" novalidate>
+        <div class="field">
+          <input id="pw" type="password" placeholder="New password" autocomplete="new-password" autofocus />
+          <button type="button" class="toggle" id="toggle">Show</button>
+        </div>
+        <ul class="rules" id="rules">
+          <li data-rule="length">At least 8 characters</li>
+          <li data-rule="upper">One uppercase letter</li>
+          <li data-rule="lower">One lowercase letter</li>
+          <li data-rule="digit">One number</li>
+          <li data-rule="special">One special character</li>
+        </ul>
+        <button type="submit" class="cta" id="submit" disabled>Update password</button>
+        <p class="err-msg" id="formErr"></p>
+      </form>
+    </div>
+
+    <!-- Done -->
+    <div data-screen="done">
+      <div class="badge badge-ok" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4.5 12.5l5 5 10-11" stroke="#fff" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <h1>Password updated 🎉</h1>
+      <p class="lede">Your password has been changed. Head back to the <b>Mela app</b> and sign in with your new password.</p>
+      <a class="cta" href="mela://">Open Mela</a>
+      <p class="hint">If the button doesn't open the app, just switch back to Mela and sign in.</p>
+    </div>
+
+    <!-- Expired / invalid link -->
+    <div data-screen="error">
+      <div class="badge badge-warn" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 7.5v5.5" stroke="#fff" stroke-width="2.8" stroke-linecap="round"/><circle cx="12" cy="16.5" r="1.5" fill="#fff"/></svg>
+      </div>
+      <h1>This link has expired</h1>
+      <p class="lede">Password reset links can be used once and expire after a short time, for your security. This one is no longer valid, but getting a fresh one takes seconds.</p>
+      <a class="cta" href="mela://">Open Mela</a>
+      <p class="hint">In the Mela app, tap "Forgot password?" again to get a new link.</p>
+    </div>
+
+    <div class="support">
+      Need help? Email <a href="mailto:support@saymela.com">support@saymela.com</a>
+    </div>
+    <div class="wordmark">
+      <img src="../assets/mela-wordmark.svg" alt="Mela" />
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    (function () {
+      // Public project ref + anon key (the same public key the app ships with -
+      // safe to expose; RLS + the recovery token are what actually gate access).
+      var SUPABASE_URL = "https://ggnqnpqgfztevgcgehvq.supabase.co";
+      var SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdnbnFucHFnZnp0ZXZnY2dlaHZxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU3NjMyNjIsImV4cCI6MjA5MTMzOTI2Mn0.XMJNnkoXALlS5D89ogaYK3SZiYEG7ldgJZflkJx7UVs";
+
+      var root = document.documentElement;
+      function show(state){ root.setAttribute("data-state", state); }
+      show("loading");
+
+      // The recovery email template links here as
+      //   /reset-password?token_hash=<hash>&type=recovery
+      // Read it from the query, falling back to the fragment just in case.
+      function readParams(){
+        var out = {};
+        try {
+          new URLSearchParams(window.location.search).forEach(function(v,k){ out[k]=v; });
+          var frag = (window.location.hash||"").replace(/^#/, "");
+          new URLSearchParams(frag).forEach(function(v,k){ if(!(k in out)) out[k]=v; });
+        } catch(e){}
+        return out;
+      }
+      var params = readParams();
+      var tokenHash = params.token_hash || params.token || null;
+      var type = params.type || "recovery";
+
+      if (!window.supabase || !tokenHash){ show("error"); return; }
+      var client = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+        auth: { persistSession: false, autoRefreshToken: false, detectSessionInUrl: false }
+      });
+
+      // Rules mirror the app (8+, upper, lower, digit, special).
+      var RULES = {
+        length: function(s){ return s.length >= 8; },
+        upper: function(s){ return /[A-Z]/.test(s); },
+        lower: function(s){ return /[a-z]/.test(s); },
+        digit: function(s){ return /[0-9]/.test(s); },
+        special: function(s){ return /[^A-Za-z0-9]/.test(s); }
+      };
+      function allOk(s){ return Object.keys(RULES).every(function(k){ return RULES[k](s); }); }
+
+      var pw = document.getElementById("pw");
+      var submit = document.getElementById("submit");
+      var formErr = document.getElementById("formErr");
+      var rulesEl = document.getElementById("rules");
+
+      function refreshRules(){
+        var s = pw.value;
+        Array.prototype.forEach.call(rulesEl.querySelectorAll("li"), function(li){
+          li.classList.toggle("ok", RULES[li.getAttribute("data-rule")](s));
+        });
+        submit.disabled = !allOk(s);
+      }
+      pw.addEventListener("input", refreshRules);
+
+      document.getElementById("toggle").addEventListener("click", function(){
+        if (pw.type === "password"){ pw.type = "text"; this.textContent = "Hide"; }
+        else { pw.type = "password"; this.textContent = "Show"; }
+      });
+
+      document.getElementById("form").addEventListener("submit", function(e){
+        e.preventDefault();
+        formErr.textContent = "";
+        if (!allOk(pw.value)) return;
+        submit.disabled = true; submit.textContent = "Updating…";
+        client.auth.updateUser({ password: pw.value }).then(function(res){
+          if (res.error){
+            submit.disabled = false; submit.textContent = "Update password";
+            formErr.textContent = res.error.message || "Something went wrong. Please request a new link.";
+            return;
+          }
+          client.auth.signOut().catch(function(){});
+          show("done");
+        }).catch(function(){
+          submit.disabled = false; submit.textContent = "Update password";
+          formErr.textContent = "Something went wrong. Please request a new link.";
+        });
+      });
+
+      // Exchange the one-time recovery token for a short-lived session (stateless,
+      // no PKCE verifier needed - works even on a different device), then reveal
+      // the form. A used/expired token lands on the error screen.
+      client.auth.verifyOtp({ type: type, token_hash: tokenHash }).then(function(res){
+        if (res.error || !res.data || !res.data.session){ show("error"); return; }
+        try {
+          var email = res.data.user && res.data.user.email;
+          if (email) document.getElementById("who").textContent = email;
+        } catch(e){}
+        show("form");
+        refreshRules();
+      }).catch(function(){ show("error"); });
+    })();
+  </script>
+</body>
+</html>

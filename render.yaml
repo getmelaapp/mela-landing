@@ -26,3 +26,6 @@ services:
       - type: rewrite
         source: /confirmed
         destination: /confirmed/index.html
+      - type: rewrite
+        source: /reset-password
+        destination: /reset-password/index.html
