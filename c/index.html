@@ -30,6 +30,9 @@
     .lede b{color:var(--text);font-weight:600}
     .cta{display:block;width:100%;background:linear-gradient(135deg,var(--cta-start),var(--cta-end));color:#fff;font-weight:700;font-size:16px;padding:16px 24px;border:0;border-radius:15px;text-decoration:none;box-shadow:0 12px 28px rgba(150,73,0,.24);cursor:pointer;font-family:inherit}
     .cta:hover{opacity:.96}
+    .cta+.cta{margin-top:12px}
+    .cta-ghost{background:none;color:var(--primary);border:1px solid var(--line);box-shadow:none;font-weight:600}
+    .cta-ghost:hover{background:var(--tint,#fff3ea);opacity:1}
     .hint{margin-top:16px;font-size:14px;color:var(--muted)}
     .support{margin-top:26px;padding-top:22px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
     .support a{color:var(--primary);font-weight:600;text-decoration:none}
@@ -51,8 +54,13 @@
       </div>
       <h1>Someone shared their card</h1>
       <p class="lede">Open <b>Mela</b> to save this contact - just like scanning their business card.</p>
+      <!-- storeBtn is the primary CTA on iPhone (an installed app opens directly
+           via the saymela.com universal link, so a visitor who lands HERE on iOS
+           almost certainly does not have the app). Android keeps "Open in Mela"
+           primary and the install hint - store link is iOS-only for now. -->
+      <a class="cta" id="storeBtn" href="https://apps.apple.com/app/id6780077228" style="display:none">Get Mela free on the App Store</a>
       <a class="cta" id="openBtn" href="#">Open in Mela</a>
-      <p class="hint">Don't have Mela yet? Install Mela, sign in, then open this link again to save the contact.</p>
+      <p class="hint" id="hint">Don't have Mela yet? Install Mela, sign in, then open this link again to save the contact.</p>
     </div>
 
     <!-- Bad / expired code -->
@@ -92,6 +100,20 @@
       if (!/^[A-Za-z0-9_-]{24,80}$/.test(token)) { show("error"); return; }
 
       document.getElementById("openBtn").setAttribute("href", "mela://c/" + token);
+
+      // Platform-aware CTA. On iPhone, surface the App Store as the primary
+      // action (a page load here means the app almost certainly is not
+      // installed) and demote "Open in Mela" to a secondary link. Android keeps
+      // the website experience for now.
+      var ua = navigator.userAgent || "";
+      if (/iPad|iPhone|iPod/.test(ua) && !/Windows|Android/.test(ua)) {
+        document.getElementById("storeBtn").style.display = "block";
+        document.getElementById("openBtn").className = "cta cta-ghost";
+        document.getElementById("openBtn").textContent = "Already have Mela? Open it";
+        document.getElementById("hint").textContent =
+          "Get Mela free on the App Store, then open this link again to save the contact.";
+      }
+
       show("card");
     })();
   </script>
